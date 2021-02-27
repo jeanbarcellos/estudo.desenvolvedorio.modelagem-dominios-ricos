@@ -27,7 +27,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{441B7057
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NerdStore.Catalogo.Domain.Tests", "tests\NerdStore.Catalogo.Domain.Tests\NerdStore.Catalogo.Domain.Tests.csproj", "{CDFC5E9C-4CD4-40D1-99EE-DD86ED17CEF8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NerdStore.Catalogo.Data", "src\NetStore.Catalogo.Data\NerdStore.Catalogo.Data.csproj", "{6884D1E8-271E-4FA0-BD44-B96655DC2787}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NerdStore.Catalogo.Data", "src\NerdStore.Catalogo.Data\NerdStore.Catalogo.Data.csproj", "{6884D1E8-271E-4FA0-BD44-B96655DC2787}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
