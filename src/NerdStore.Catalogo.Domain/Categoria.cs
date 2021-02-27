@@ -10,6 +10,7 @@ namespace NerdStore.Catalogo.Domain
         // EF Relation
         public ICollection<Produto> Produtos { get; set; }
 
+        // EF
         protected Categoria () { }
 
         public Categoria(string nome, int codigo)

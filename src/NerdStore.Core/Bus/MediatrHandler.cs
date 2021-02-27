@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace NerdStore.Core.Bus
 {
-    class MediatrHandler : IMediatrHandler
+    public class MediatrHandler : IMediatrHandler
     {
         private readonly IMediator _mediator;
 
