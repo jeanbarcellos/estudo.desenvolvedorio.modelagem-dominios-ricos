@@ -7,6 +7,7 @@ using NerdStore.Catalogo.Domain;
 using NerdStore.Catalogo.Domain.Events;
 using NerdStore.Catalogo.Domain.Services;
 using NerdStore.Core.Bus;
+using NerdStore.Vendas.Application.Commands;
 
 namespace NerdStore.WebApp.MVC.Setup
 {
@@ -17,7 +18,7 @@ namespace NerdStore.WebApp.MVC.Setup
             // Domain Buss (Mediator)
             services.AddScoped<IMediatrHandler, MediatrHandler>();
 
-            // Catalogo
+            // Bounded Context Catalogo
             services.AddScoped<IProdutoRepository, ProdutoRepository>();
             services.AddScoped<IProdutoAppService, ProdutoAppService>();
             services.AddScoped<IEstoqueService, EstoqueService>();
@@ -25,6 +26,9 @@ namespace NerdStore.WebApp.MVC.Setup
 
             // Domain Events
             services.AddScoped<INotificationHandler<ProdutoAbaixoEstoqueEvent>, ProdutoEventHandler>();
+
+            // Bounded Context  Vendas
+            services.AddScoped<IRequestHandler<AdicionarItemPedidoCommand, bool>, PedidoCommandHandler>();
         }
     }
 }
