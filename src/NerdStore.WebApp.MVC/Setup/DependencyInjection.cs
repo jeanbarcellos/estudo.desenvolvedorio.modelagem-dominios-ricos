@@ -10,6 +10,7 @@ using NerdStore.Core.Communication.Mediator;
 using NerdStore.Core.Messages.CommonMessages.Notifications;
 using NerdStore.Vendas.Application.Commands;
 using NerdStore.Vendas.Application.Events;
+using NerdStore.Vendas.Application.Queries;
 using NerdStore.Vendas.Data.Context;
 using NerdStore.Vendas.Data.Repositories;
 using NerdStore.Vendas.Domain;
@@ -35,6 +36,7 @@ namespace NerdStore.WebApp.MVC.Setup
             services.AddScoped<VendasContext>();
             services.AddScoped<IRequestHandler<AdicionarItemPedidoCommand, bool>, PedidoCommandHandler>();
             services.AddScoped<IPedidoRepository, PedidoRepository>();
+            services.AddScoped<IPedidoQueries, PedidoQueries>();
 
             services.AddScoped<INotificationHandler<PedidoAtualizadoEvent>, PedidoEventHandler>();
             services.AddScoped<INotificationHandler<PedidoItemAdicionadoEvent>, PedidoEventHandler>();
