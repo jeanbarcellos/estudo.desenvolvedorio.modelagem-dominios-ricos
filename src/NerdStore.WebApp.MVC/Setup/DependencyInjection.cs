@@ -25,22 +25,27 @@ namespace NerdStore.WebApp.MVC.Setup
             services.AddScoped<IMediatorHandler, MediatorHandler>();
             services.AddScoped<INotificationHandler<DomainNotification>, DomainNotificationHandler>();
 
-            // Bounded Context Catalogo
+            // # Bounded Context Catalogo
             services.AddScoped<IProdutoRepository, ProdutoRepository>();
             services.AddScoped<IProdutoAppService, ProdutoAppService>();
             services.AddScoped<IEstoqueService, EstoqueService>();
             services.AddScoped<CatalogoContext>();
             services.AddScoped<INotificationHandler<ProdutoAbaixoEstoqueEvent>, ProdutoEventHandler>(); // Domain Events
 
-            // Bounded Context  Vendas
+            // # Bounded Context  Vendas
             services.AddScoped<VendasContext>();
-            services.AddScoped<IRequestHandler<AdicionarItemPedidoCommand, bool>, PedidoCommandHandler>();
             services.AddScoped<IPedidoRepository, PedidoRepository>();
             services.AddScoped<IPedidoQueries, PedidoQueries>();
+
+            services.AddScoped<IRequestHandler<AdicionarItemPedidoCommand, bool>, PedidoCommandHandler>();
+            services.AddScoped<IRequestHandler<AtualizarItemPedidoCommand, bool>, PedidoCommandHandler>();
+            services.AddScoped<IRequestHandler<RemoverItemPedidoCommand, bool>, PedidoCommandHandler>();
+            services.AddScoped<IRequestHandler<AplicarVoucherPedidoCommand, bool>, PedidoCommandHandler>();
 
             services.AddScoped<INotificationHandler<PedidoAtualizadoEvent>, PedidoEventHandler>();
             services.AddScoped<INotificationHandler<PedidoItemAdicionadoEvent>, PedidoEventHandler>();
             services.AddScoped<INotificationHandler<PedidoRascunhoIniciadoEvent>, PedidoEventHandler>();
+
         }
     }
 }
