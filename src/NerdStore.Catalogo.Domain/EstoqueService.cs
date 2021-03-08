@@ -57,18 +57,15 @@ namespace NerdStore.Catalogo.Domain
             }
 
             _produtoRepository.Atualizar(produto);
+
             return true;
         }
 
         public async Task<bool> ReporEstoque(Guid produtoId, int quantidade)
         {
-            var produto = await _produtoRepository.ObterPorId(produtoId);
+            var sucesso = await ReporItemEstoque(produtoId, quantidade);
 
-            if (produto == null) return false;
-
-            produto.ReporEstoque(quantidade);
-
-            _produtoRepository.Atualizar(produto);
+            if (!sucesso) return false;
 
             return await _produtoRepository.UnitOfWork.Commit();
         }
@@ -86,11 +83,13 @@ namespace NerdStore.Catalogo.Domain
         private async Task<bool> ReporItemEstoque(Guid produtoId, int quantidade)
         {
             var produto = await _produtoRepository.ObterPorId(produtoId);
+
             if (produto == null) return false;
 
             produto.ReporEstoque(quantidade);
 
             _produtoRepository.Atualizar(produto);
+
             return true;
         }
 

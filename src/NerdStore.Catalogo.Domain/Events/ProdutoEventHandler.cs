@@ -7,7 +7,10 @@ using System.Threading.Tasks;
 
 namespace NerdStore.Catalogo.Domain.Events
 {
-    public class ProdutoEventHandler : INotificationHandler<ProdutoAbaixoEstoqueEvent>
+    public class ProdutoEventHandler :
+        INotificationHandler<ProdutoAbaixoEstoqueEvent>,
+        INotificationHandler<PedidoIniciadoEvent>,
+        INotificationHandler<PedidoProcessamentoCanceladoEvent>
     {
         private readonly IProdutoRepository _produtoRepository;
         private readonly IEstoqueService _estoqueService;
@@ -20,25 +23,31 @@ namespace NerdStore.Catalogo.Domain.Events
             _mediatorHandler = mediatorHandler;
         }
 
-        public async Task Handle(ProdutoAbaixoEstoqueEvent mensagem, CancellationToken cancellationToken)
+        public async Task Handle(ProdutoAbaixoEstoqueEvent message, CancellationToken cancellationToken)
         {
-            var produto = await _produtoRepository.ObterPorId(mensagem.AggregateId);
+            var produto = await _produtoRepository.ObterPorId(message.AggregateId);
 
             // Enviar um e-mail para aquisicao de mais produtos.
         }
 
-        public async Task Handle(PedidoIniciadoEvent mensagem, CancellationToken cancellationToken)
+        public async Task Handle(PedidoIniciadoEvent message, CancellationToken cancellationToken)
         {
-            var resultado = await _estoqueService.DebitarListaProdutosPedido(mensagem.ProdutosPedido);
+            var resultado = await _estoqueService.DebitarListaProdutosPedido(message.ProdutosPedido);
 
             if (resultado)
             {
-                await _mediatorHandler.PublicarEvento(new PedidoEstoqueConfirmadoEvent(mensagem.PedidoId, mensagem.ClienteId, mensagem.Total, mensagem.ProdutosPedido, mensagem.NomeCartao, mensagem.NumeroCartao, mensagem.ExpiracaoCartao, mensagem.CVVCartao));
+                await _mediatorHandler.PublicarEvento(new PedidoEstoqueConfirmadoEvent(message.PedidoId, message.ClienteId, message.Total, message.ProdutosPedido, message.NomeCartao, message.NumeroCartao, message.ExpiracaoCartao, message.CVVCartao));
             }
             else
             {
-                await _mediatorHandler.PublicarEvento(new PedidoEstoqueRejeitadoEvent(mensagem.PedidoId, mensagem.ClienteId));
+                await _mediatorHandler.PublicarEvento(new PedidoEstoqueRejeitadoEvent(message.PedidoId, message.ClienteId));
             }
         }
+
+        public async Task Handle(PedidoProcessamentoCanceladoEvent message, CancellationToken cancellationToken)
+        {
+            await _estoqueService.ReporListaProdutosPedido(message.ProdutosPedido);
+        }
+
     }
 }
