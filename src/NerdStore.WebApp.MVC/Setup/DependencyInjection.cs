@@ -8,6 +8,7 @@ using NerdStore.Catalogo.Domain;
 using NerdStore.Catalogo.Domain.Events;
 using NerdStore.Catalogo.Domain.Services;
 using NerdStore.Core.Communication.Mediator;
+using NerdStore.Core.Data.EventSourcing;
 using NerdStore.Core.Messages.CommonMessages.IntegrationEvents;
 using NerdStore.Core.Messages.CommonMessages.Notifications;
 using NerdStore.Pagamentos.AntiCorruption;
@@ -36,7 +37,7 @@ namespace NerdStore.WebApp.MVC.Setup
 
             // Event Sourcing
             services.AddSingleton<IEventStoreService, IEventStoreService>();
-
+            services.AddSingleton<IEventSourcingRepository, EventSourcingRepository>();
 
 
             /*
