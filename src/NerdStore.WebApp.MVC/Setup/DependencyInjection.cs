@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using EventSourcing;
+using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using NerdStore.Catalogo.Application.Services;
 using NerdStore.Catalogo.Data;
@@ -29,7 +30,13 @@ namespace NerdStore.WebApp.MVC.Setup
         {
             // Mediator
             services.AddScoped<IMediatorHandler, MediatorHandler>();
+
+            // Notifications
             services.AddScoped<INotificationHandler<DomainNotification>, DomainNotificationHandler>();
+
+            // Event Sourcing
+            services.AddSingleton<IEventStoreService, IEventStoreService>();
+
 
 
             /*
@@ -63,9 +70,11 @@ namespace NerdStore.WebApp.MVC.Setup
             services.AddScoped<IRequestHandler<CancelarProcessamentoPedidoCommand, bool>, PedidoCommandHandler>();
             services.AddScoped<IRequestHandler<CancelarProcessamentoPedidoEstornarEstoqueCommand, bool>, PedidoCommandHandler>();
             // Events
-            services.AddScoped<INotificationHandler<PedidoAtualizadoEvent>, PedidoEventHandler>();
-            services.AddScoped<INotificationHandler<PedidoItemAdicionadoEvent>, PedidoEventHandler>();
             services.AddScoped<INotificationHandler<PedidoRascunhoIniciadoEvent>, PedidoEventHandler>();
+            services.AddScoped<INotificationHandler<PedidoAtualizadoEvent>, PedidoEventHandler>();
+            services.AddScoped<INotificationHandler<PedidoProdutoAdicionadoEvent>, PedidoEventHandler>();
+            services.AddScoped<INotificationHandler<PedidoProdutoAtualizadoEvent>, PedidoEventHandler>();
+            services.AddScoped<INotificationHandler<PedidoProdutoRemovidoEvent>, PedidoEventHandler>();
             // Integration Events
             services.AddScoped<INotificationHandler<PedidoEstoqueRejeitadoEvent>, PedidoEventHandler>();
             services.AddScoped<INotificationHandler<PagamentoRealizadoEvent>, PedidoEventHandler>();

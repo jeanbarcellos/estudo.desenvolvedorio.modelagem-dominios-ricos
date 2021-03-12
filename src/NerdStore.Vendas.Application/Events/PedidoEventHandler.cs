@@ -10,7 +10,9 @@ namespace NerdStore.Vendas.Application.Events
     public class PedidoEventHandler :
         INotificationHandler<PedidoRascunhoIniciadoEvent>,
         INotificationHandler<PedidoAtualizadoEvent>,
-        INotificationHandler<PedidoItemAdicionadoEvent>,
+        INotificationHandler<PedidoProdutoAdicionadoEvent>,
+        INotificationHandler<PedidoProdutoAtualizadoEvent>,
+        INotificationHandler<PedidoProdutoRemovidoEvent>,
         INotificationHandler<PedidoEstoqueRejeitadoEvent>,
         INotificationHandler<PagamentoRealizadoEvent>,
         INotificationHandler<PagamentoRecusadoEvent>
@@ -33,10 +35,21 @@ namespace NerdStore.Vendas.Application.Events
             return Task.CompletedTask;
         }
 
-        public Task Handle(PedidoItemAdicionadoEvent notification, CancellationToken cancellationToken)
+        public Task Handle(PedidoProdutoAdicionadoEvent notification, CancellationToken cancellationToken)
         {
             return Task.CompletedTask;
         }
+        public Task Handle(PedidoProdutoAtualizadoEvent notification, CancellationToken cancellationToken)
+        {
+            return Task.CompletedTask;
+        }
+
+        public Task Handle(PedidoProdutoRemovidoEvent notification, CancellationToken cancellationToken)
+        {
+            return Task.CompletedTask;
+        }
+
+        #region Integraion Events
 
         public async Task Handle(PedidoEstoqueRejeitadoEvent message, CancellationToken cancellationToken)
         {
@@ -54,6 +67,8 @@ namespace NerdStore.Vendas.Application.Events
         {
             await _mediatorHandler.EnviarComando(new CancelarProcessamentoPedidoEstornarEstoqueCommand(message.PedidoId, message.ClienteId));
         }
+
+        #endregion
     }
 
 }
