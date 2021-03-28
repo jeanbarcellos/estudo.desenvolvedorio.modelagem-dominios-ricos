@@ -11,8 +11,9 @@ namespace NerdStore.Vendas.Data.Mappings
             builder.ToTable("Pedidos");
 
             builder.HasKey(c => c.Id);
+
             builder.Property(c => c.Codigo)
-                .HasDefaultValueSql("NEXT VALUE FOR MinhaSequencia");
+                .HasDefaultValueSql("nextval('\"MinhaSequencia\"'::regclass)");
 
             builder.HasMany(c => c.PedidoItens)
                 .WithOne(c => c.Pedido)
