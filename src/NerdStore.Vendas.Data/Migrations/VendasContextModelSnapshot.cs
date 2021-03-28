@@ -32,7 +32,9 @@ namespace NerdStore.Vendas.Data.Migrations
                         .HasColumnType("uuid");
 
                     b.Property<int>("Codigo")
-                        .HasColumnType("integer");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasDefaultValueSql("nextval('\"MinhaSequencia\"'::regclass)");
 
                     b.Property<DateTime>("DataCadastro")
                         .HasColumnType("timestamp without time zone");
@@ -72,7 +74,8 @@ namespace NerdStore.Vendas.Data.Migrations
                         .HasColumnType("uuid");
 
                     b.Property<string>("ProdutoNome")
-                        .HasColumnType("varchar(100)");
+                        .IsRequired()
+                        .HasColumnType("varchar(250)");
 
                     b.Property<int>("Quantidade")
                         .HasColumnType("integer");
@@ -97,6 +100,7 @@ namespace NerdStore.Vendas.Data.Migrations
                         .HasColumnType("boolean");
 
                     b.Property<string>("Codigo")
+                        .IsRequired()
                         .HasColumnType("varchar(100)");
 
                     b.Property<DateTime>("DataCriacao")

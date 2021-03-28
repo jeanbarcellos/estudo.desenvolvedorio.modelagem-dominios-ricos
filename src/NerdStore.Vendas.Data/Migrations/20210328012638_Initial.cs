@@ -16,7 +16,7 @@ namespace NerdStore.Vendas.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    Codigo = table.Column<string>(type: "varchar(100)", nullable: true),
+                    Codigo = table.Column<string>(type: "varchar(100)", nullable: false),
                     Percentual = table.Column<decimal>(type: "numeric", nullable: true),
                     ValorDesconto = table.Column<decimal>(type: "numeric", nullable: true),
                     Quantidade = table.Column<int>(type: "integer", nullable: false),
@@ -37,7 +37,7 @@ namespace NerdStore.Vendas.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    Codigo = table.Column<int>(type: "integer", nullable: false),
+                    Codigo = table.Column<int>(type: "integer", nullable: false, defaultValueSql: "nextval('\"MinhaSequencia\"'::regclass)"),
                     ClienteId = table.Column<Guid>(type: "uuid", nullable: false),
                     VoucherId = table.Column<Guid>(type: "uuid", nullable: true),
                     VoucherUtilizado = table.Column<bool>(type: "boolean", nullable: false),
@@ -64,7 +64,7 @@ namespace NerdStore.Vendas.Data.Migrations
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     PedidoId = table.Column<Guid>(type: "uuid", nullable: false),
                     ProdutoId = table.Column<Guid>(type: "uuid", nullable: false),
-                    ProdutoNome = table.Column<string>(type: "varchar(100)", nullable: true),
+                    ProdutoNome = table.Column<string>(type: "varchar(250)", nullable: false),
                     Quantidade = table.Column<int>(type: "integer", nullable: false),
                     ValorUnitario = table.Column<decimal>(type: "numeric", nullable: false)
                 },

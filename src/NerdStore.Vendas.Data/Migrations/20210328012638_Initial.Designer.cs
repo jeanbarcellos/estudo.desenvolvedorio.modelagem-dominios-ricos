@@ -10,7 +10,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace NerdStore.Vendas.Data.Migrations
 {
     [DbContext(typeof(VendasContext))]
-    [Migration("20210228233409_Initial")]
+    [Migration("20210328012638_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -34,7 +34,9 @@ namespace NerdStore.Vendas.Data.Migrations
                         .HasColumnType("uuid");
 
                     b.Property<int>("Codigo")
-                        .HasColumnType("integer");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasDefaultValueSql("nextval('\"MinhaSequencia\"'::regclass)");
 
                     b.Property<DateTime>("DataCadastro")
                         .HasColumnType("timestamp without time zone");
@@ -74,7 +76,8 @@ namespace NerdStore.Vendas.Data.Migrations
                         .HasColumnType("uuid");
 
                     b.Property<string>("ProdutoNome")
-                        .HasColumnType("varchar(100)");
+                        .IsRequired()
+                        .HasColumnType("varchar(250)");
 
                     b.Property<int>("Quantidade")
                         .HasColumnType("integer");
@@ -99,6 +102,7 @@ namespace NerdStore.Vendas.Data.Migrations
                         .HasColumnType("boolean");
 
                     b.Property<string>("Codigo")
+                        .IsRequired()
                         .HasColumnType("varchar(100)");
 
                     b.Property<DateTime>("DataCriacao")
