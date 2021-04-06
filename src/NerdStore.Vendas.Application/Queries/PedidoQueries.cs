@@ -68,6 +68,7 @@ namespace NerdStore.Vendas.Application.Queries
             {
                 colecao.Add(new PedidoViewModel
                 {
+                    Id = pedido.Id,
                     ValorTotal = pedido.ValorTotal,
                     PedidoStatus = (int)pedido.PedidoStatus,
                     Codigo = pedido.Codigo,
