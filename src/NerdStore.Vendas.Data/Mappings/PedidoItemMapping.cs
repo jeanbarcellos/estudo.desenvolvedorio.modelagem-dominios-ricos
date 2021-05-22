@@ -11,6 +11,7 @@ namespace NerdStore.Vendas.Data.Mappings
             builder.ToTable("PedidoItens");
 
             builder.HasKey(c => c.Id);
+
             builder.Property(c => c.ProdutoNome)
                 .IsRequired()
                 .HasColumnType("varchar(250)");
